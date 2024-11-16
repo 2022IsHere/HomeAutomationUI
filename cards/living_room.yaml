@@ -1,0 +1,12 @@
+# Name: living_room.yaml
+# Author: Sebastian Sopola @ https://www.linkedin.com/in/sebastiansopola/
+#
+# Description: This file defines the configuration for specific room area
+
+
+
+alert_classes: []
+sensor_classes: []
+type: area
+area: olohuone
+navigation_path: /wall-panel/olohuone

@@ -1,0 +1,11 @@
+# Name: entrance.yaml
+# Author: Sebastian Sopola @ https://www.linkedin.com/in/sebastiansopola/
+#
+# Description: This file defines the configuration for specific room area
+
+
+
+type: area
+area: eteinen
+navigation_path: /wall-panel/eteinen
+show_camera: false

@@ -1,0 +1,29 @@
+# Name: content.yaml
+# Author: Sebastian Sopola @ https://www.linkedin.com/in/sebastiansopola/
+#
+# Description: This file contains the configuration for the Security Area Card, which provides an overview 
+#              of the home's security system. It displays the status of key entry points, enabling real-time 
+#              monitoring of door sensors for enhanced safety and convenience.
+#
+# Features:
+#  - Door Monitoring: Tracks the status of entry points such as the front and back doors.
+#  - Real-Time Status: Displays whether doors are open or closed via binary sensor entities.
+#  - Compact Layout: Organized in a clear and concise format for easy monitoring at a glance.
+#
+# Warning: Ensure the door sensors are correctly integrated and their entity IDs match the configuration. 
+#          Misconfigured or missing entities may lead to inaccurate or incomplete status monitoring.
+
+
+
+type: vertical-stack
+cards:
+  - type: entities
+    entities:
+      - entity: binary_sensor.etuovi_door
+        name: Door
+    title: Etuovi
+  - type: entities
+    entities:
+      - entity: binary_sensor.takaovi_door
+        name: Door
+    title: Takaovi

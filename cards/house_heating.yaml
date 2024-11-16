@@ -1,0 +1,15 @@
+# Name: house_heating.yaml
+# Author: Sebastian Sopola @ https://www.linkedin.com/in/sebastiansopola/
+#
+# Description: This file defines the configuration for house central controlling board 
+
+
+alert_classes:
+  - motion
+  - moisture
+sensor_classes:
+  - temperature
+  - humidity
+type: area
+area: talon_lammitys
+navigation_path: /wall-panel/lämmitys

@@ -1,0 +1,73 @@
+# Name: maintenance_card.yaml
+# Author: Sebastian Sopola @ https://www.linkedin.com/in/sebastiansopola/
+#
+# Description: This file contains the configuration for the Maintenance Card, which provides an overview 
+#              of essential environmental and energy data across the home. It includes weather information, 
+#              room-specific temperature and humidity data, and total daily energy usage.
+#
+# Features:
+#  - Weather Overview: Displays real-time weather conditions with a clock and forecast data.
+#  - Temperature and Humidity Sensors: Presents room-specific environmental metrics for monitoring.
+#  - Total Energy Consumption: Tracks and displays the total daily energy usage for cost monitoring.
+#  - Room-Specific Details: Includes dedicated sections for each room, listing temperature and humidity 
+#    levels to ensure optimal conditions across the home.
+#
+# Warning: Ensure all entities are properly configured and match their corresponding sensor data. Any 
+#          mismatch or missing entity could lead to incomplete or inaccurate display of maintenance information.
+
+
+
+type: vertical-stack
+cards:
+  - type: custom:clock-weather-card
+    entity: weather.forecast_home
+  - type: glance
+    show_name: true
+    show_icon: true
+    show_state: true
+    entities:
+      - entity: sensor.outdoor_temperature_and_humidity_sensor_temperature
+      - entity: sensor.indoor_average_temperature_and_humidity
+      - entity: sensor.total_daily_energy
+  - type: entities
+    entities:
+      - entity: sensor.living_room_temperature_and_humidity_sensor_humidity
+        name: Kosteus
+      - entity: sensor.living_room_temperature_and_humidity_sensor_temperature
+        name: Lämpötila
+    title: Olohuone
+  - type: entities
+    entities:
+      - entity: sensor.kitchen_temperature_and_humidity_sensor_humidity
+        name: Kosteus
+      - entity: sensor.kitchen_temperature_and_humidity_sensor_temperature
+        name: Lämpötila
+    title: Keittiö
+  - type: entities
+    entities:
+      - entity: sensor.main_bedroom_temperature_and_humidity_sensor_humidity
+        name: Kosteus
+      - entity: sensor.main_bedroom_temperature_and_humidity_sensor_temperature
+        name: Lämpötila
+    title: Päämakuuhuone
+  - type: entities
+    entities:
+      - entity: sensor.bedroom_temperature_and_humisity_sensor_humidity
+        name: Kosteus
+      - entity: sensor.bedroom_temperature_and_humidity_sensor_temperature
+        name: Lämpötila
+    title: Makuuhuone
+  - type: entities
+    entities:
+      - entity: sensor.guest_bedroom_temperature_and_humidity_sensor_humidity
+        name: Kosteus
+      - entity: sensor.guest_bedroom_temperature_and_humidity_sensor_temperature
+        name: Lämpötila
+    title: Vierashuone
+  - type: entities
+    entities:
+      - entity: sensor.sauna_room_tempeature_and_humidity_sensor_humidity
+        name: Kosteus
+      - entity: sensor.sauna_room_tempeature_and_humidity_sensor_temperature
+        name: Lämpötila
+    title: Saunatila

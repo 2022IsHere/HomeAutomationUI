@@ -1,0 +1,16 @@
+# Name: maintenance.yaml
+# Author: Sebastian Sopola @ https://www.linkedin.com/in/sebastiansopola/
+#
+# Description: This file defines the configuration for specific task area
+
+
+
+alert_classes:
+  - motion
+  - moisture
+sensor_classes:
+  - temperature
+  - humidity
+type: area
+area: yllapito
+navigation_path: /wall-panel/yllapito

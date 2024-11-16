@@ -1,0 +1,51 @@
+# Name: content.yaml
+# Author: Sebastian Sopola @ https://www.linkedin.com/in/sebastiansopola/
+#
+# Description: This file contains the general configuration for area-specific features within a room. 
+#              It includes heating control, automated heating scheduling, and settings for temperature 
+#              targets, ranges, and living space dimensions.
+#
+# Features:
+#  - Thermostat: Displays current room temperature and allows setting the desired temperature.
+#  - Heating Automation Toggle: Enables or disables heating system automation for the area.
+#  - Scheduling: Provides start and end times for heating based on user preferences.
+#  - Temperature Settings: Configures target, minimum, and maximum temperature levels for the area.
+#  - Living Space: Defines the size of the heated area for energy efficiency calculations.
+#
+# Warning: It is RECOMMENDED to use the same formatting and maintain consistent entity names 
+#          across rooms for proper integration with the system. Any deviation might lead to errors 
+#          in automation or UI functionality!
+
+
+
+type: vertical-stack
+cards:
+  - type: thermostat
+    entity: climate.keittio
+    show_current_as_primary: false
+  - type: custom:button-card
+    entity: input_boolean.kitchen_heating_system_service_control
+    name: lämmitysautomatiikka
+    show_state: false
+    tap_action:
+      action: toggle
+    icon: |
+      [[[
+        return states['input_boolean.kitchen_heating_system_service_control'].state === 'on'
+          ? 'mdi:toggle-switch-variant-off'
+          : 'mdi:toggle-switch-variant';
+      ]]]
+  - type: entities
+    entities:
+      - entity: input_datetime.kitchen_heating_schedule_start_time
+        name: Lämmityksen aloitus
+      - entity: input_datetime.kitchen_heating_schedule_end_time
+        name: Lämmityksen lopetus
+      - entity: input_number.kitchen_target_temperature
+        name: Tavoite lämpötila
+      - entity: input_number.kitchen_minimum_temperature
+        name: Alalämpötila
+      - entity: input_number.kitchen_maximum_temperature
+        name: Ylälämpötila
+      - entity: input_number.kitchen_living_space
+        name: Sisätila (m^2)

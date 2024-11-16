@@ -1,0 +1,16 @@
+# Name: guest_bedroom.yaml
+# Author: Sebastian Sopola @ https://www.linkedin.com/in/sebastiansopola/
+#
+# Description: This file defines the configuration for specific room area
+
+
+
+alert_classes:
+  - motion
+  - moisture
+sensor_classes:
+  - temperature
+  - humidity
+type: area
+area: vieras_huone
+navigation_path: /wall-panel/vieras-huone

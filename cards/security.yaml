@@ -1,0 +1,16 @@
+# Name: security.yaml
+# Author: Sebastian Sopola @ https://www.linkedin.com/in/sebastiansopola/
+#
+# Description: This file defines the configuration for specific task area
+
+
+
+alert_classes:
+  - motion
+  - moisture
+sensor_classes:
+  - temperature
+  - humidity
+type: area
+area: tontti
+navigation_path: /wall-panel/turvallisuus

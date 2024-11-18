@@ -6,6 +6,7 @@
 #              monitoring of door sensors for enhanced safety and convenience.
 #
 # Features:
+#  - Emergency message portal: Send emergency notifications to all household occupants at once.
 #  - Door Monitoring: Tracks the status of entry points such as the front and back doors.
 #  - Real-Time Status: Displays whether doors are open or closed via binary sensor entities.
 #  - Compact Layout: Organized in a clear and concise format for easy monitoring at a glance.
@@ -18,10 +19,26 @@
 type: vertical-stack
 cards:
   - type: entities
+    title: Alarm Message Portal
+    entities:
+      - entity: input_text.alarm_message_title
+        name: Alarm Title
+      - entity: input_text.alarm_message_body
+        name: Alarm Message
+      - entity: input_button.send_alarm_message
+  - type: entities
     entities:
       - entity: binary_sensor.etuovi_door
         name: Door
     title: Etuovi
+  - type: button
+    show_name: true
+    show_icon: true
+    entity: input_boolean.system_alarms
+    name: Kytke hälytykset
+    icon: mdi:shield-home
+    tap_action:
+      action: toggle
   - type: entities
     entities:
       - entity: binary_sensor.takaovi_door

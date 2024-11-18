@@ -24,6 +24,7 @@ This repository contains the configuration for a custom-built Home Automation UI
 - **Room-Specific Data**: Ambient temperature and humidity levels for each room.  
 
 ### Security Board  
+- **Emergency Message Portal**: Send message of any emergency at once to everyone belonging to the household.
 - **Alarm Management**: Enable or disable alarms or notifications for risk detection and anomaly alerts.  
 - **Detailed Security Information**: Provides insights into security units and potential issues.  
 

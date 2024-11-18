@@ -19,12 +19,12 @@
 type: vertical-stack
 cards:
   - type: entities
-    title: Alarm Message Portal
+    title: Ilmoita hätätapauksesta kaikille
     entities:
       - entity: input_text.alarm_message_title
-        name: Alarm Title
+        name: Viestin otsikko (valinnainen)
       - entity: input_text.alarm_message_body
-        name: Alarm Message
+        name: Viesti (pakollinen)
       - entity: input_button.send_alarm_message
   - type: entities
     entities:

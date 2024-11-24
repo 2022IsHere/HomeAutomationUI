@@ -22,6 +22,11 @@ type: vertical-stack
 cards:
   - type: thermostat
     entity: climate.vierashuone
+    features:
+      - type: climate-hvac-modes
+        hvac_modes:
+          - heat
+          - "off"
   - type: custom:button-card
     entity: input_boolean.guest_bedroom_heating_system_service_control
     name: lämmitysautomatiikka

@@ -22,7 +22,11 @@ type: vertical-stack
 cards:
   - type: thermostat
     entity: climate.makuuhuone
-    show_current_as_primary: false
+    features:
+      - type: climate-hvac-modes
+        hvac_modes:
+          - heat
+          - "off"
   - type: custom:button-card
     entity: input_boolean.bedroom_heating_system_service_control
     name: lämmitysautomatiikka

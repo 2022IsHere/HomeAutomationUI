@@ -28,31 +28,173 @@
 type: vertical-stack
 cards:
   - type: thermostat
-    entity: climate.makuuhuone
-    show_current_as_primary: false
+    entity: climate.central_home_thermostat
+    name: Talon päälämmitys
+    features:
+      - type: climate-hvac-modes
+        hvac_modes:
+          - heat
+          - "off"
+  - type: glance
+    show_name: true
+    show_icon: true
+    show_state: true
+    entities:
+      - entity: sensor.nordpool_low_price
+      - entity: sensor.nordpool_kwh_fi_eur_2_10_0255
+        icon: mdi:currency-eur
+      - entity: sensor.nordpool_high_price
+  - type: glance
+    show_name: true
+    show_icon: true
+    show_state: true
+    entities:
+      - entity: sensor.nordpool_low_price_period
+      - entity: sensor.nordpool_current_price_period
+      - entity: sensor.nordpool_high_price_period
+  - type: entities
+    entities:
+      - entity: input_number.base_fee
+      - entity: input_number.fixed_price
+      - entity: input_number.general_electricity_transfer_fee
+      - entity: input_number.electricity_tax
+      - entity: input_number.price_treshold
   - type: custom:button-card
-    entity: input_boolean.bedroom_heating_system_service_control
+    entity: input_boolean.central_heating_system_interface
     name: lämmitysautomatiikka
     show_state: false
     tap_action:
       action: toggle
     icon: |
       [[[
-        return states['input_boolean.bedroom_heating_system_service_control'].state === 'on'
+        return states['input_boolean.central_heating_system_interface'].state === 'on'
           ? 'mdi:toggle-switch-variant-off'
           : 'mdi:toggle-switch-variant';
       ]]]
-  - type: entities
-    entities:
-      - entity: input_datetime.bedroom_heating_schedule_start_time
-        name: Lämmityksen aloitus
-      - entity: input_datetime.bedroom_heating_schedule_end_time
-        name: Lämmityksen lopetus
-      - entity: input_number.bedroom_target_temperature
-        name: Tavoite lämpötila
-      - entity: input_number.bedroom_minimum_temperature
-        name: Alalämpötila
-      - entity: input_number.bedroom_maximum_temperature
-        name: Ylälämpötila
-      - entity: input_number.bedroom_living_space
-        name: Sisätila (m^2)
+
+type: vertical-stack
+cards:
+  - type: custom:apexcharts-card
+    chart_type: donut
+    header:
+      show: true
+      show_states: true
+      colorize_states: true
+      title: Kuukauden lämmityksen sähkölaskun kulurakenne
+    series:
+      - entity: input_number.base_fee
+        name: Perusmaksu
+        type: column
+        unit: EUR
+        color: var(--primary-color)
+      - entity: sensor.energy_per_kwh
+        name: Energian hinta
+        type: column
+        unit: EUR
+        color: var(--primary-color)
+      - entity: sensor.transfer_fee_per_kwh
+        name: Siirtokulut
+        type: column
+        unit: EUR
+        color: var(--primary-color)
+      - entity: sensor.tax_per_kwh
+        name: Sähkövero
+        type: column
+        unit: EUR
+        color: var(--primary-color)
+  - type: custom:apexcharts-card
+    header:
+      show: true
+      title: Sähkölämmitysjärjestelmän toiminta (manual)
+    all_series_config:
+      stroke_width: 2
+    span:
+      start: day
+    series:
+      - entity: sensor.hourly_heating_energy_tracking_sensor
+        name: Sähkönkulutus (Wh)
+        type: column
+        color: var(--primary-color)
+        group_by:
+          duration: 1h
+          func: last
+        yaxis_id: left
+      - entity: sensor.nordpool_kwh_fi_eur_2_10_0255
+        type: line
+        curve: smooth
+        color: red
+        data_generator: >
+          const todayData = entity.attributes.raw_today.map(start => [new
+          Date(start.start).getTime(), start.value]);
+
+          return [...todayData]
+        yaxis_id: right
+      - entity: input_number.fixed_price
+        type: line
+        curve: stepline
+        group_by:
+          duration: 1h
+          func: last
+        yaxis_id: right
+        color: orange
+    apex_config:
+      yaxis:
+        - id: left
+          title:
+            text: Sähkönkulutus (Wh)
+          min: 0
+          max: 800
+          opposite: false
+        - id: right
+          title:
+            text: Sähkönhinta (snt/kWh)
+          min: -2
+          max: 30
+          opposite: true
+          tickAmount: 11
+
+
+type: custom:apexcharts-card
+header:
+  show: true
+  title: Hintavertailu
+  show_states: true
+  colorize_states: true
+graph_span: 1d
+span:
+  start: day
+series:
+  - entity: sensor.hourly_heating_energy_tracking_sensor
+    name: Energia (manual)
+    type: column
+    unit: Wh
+    color: var(--primary-color)
+    yaxis_id: right
+    stroke_width: 6
+    group_by:
+      func: last
+    curve: straight
+  - entity: sensor.fixed_contract_energy_cost_tracking
+    name: Kiinteä soppari
+    type: line
+    unit: €
+    color: var(--primary-color)
+    yaxis_id: left
+    stroke_width: 2
+    group_by:
+      func: last
+  - entity: sensor.estimated_automated_heating_system_energy_cost_tracking
+    name: Pörssi soppari
+    color: green
+    type: line
+    unit: €
+    yaxis_id: left
+    stroke_width: 2
+    group_by:
+      func: last
+apex_config:
+  yaxis:
+    - id: left
+      opposite: false
+    - id: right
+      opposite: true

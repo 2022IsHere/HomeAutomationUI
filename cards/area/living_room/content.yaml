@@ -20,13 +20,28 @@
 
 type: vertical-stack
 cards:
-  - type: thermostat
-    entity: climate.central_living_room_thermostat
-    name: Olohuone
-    show_current_as_primary: false
+  - type: horizontal-stack
+    cards:
+      - type: thermostat
+        entity: climate.olohuone_vasen
+        name: Olohuone
+        features:
+          - style: icons
+            type: climate-hvac-modes
+            hvac_modes:
+              - heat
+              - "off"
+      - type: thermostat
+        entity: climate.olohuone_oikea
+        name: Olohuone
+        features:
+          - type: climate-hvac-modes
+            hvac_modes:
+              - heat
+              - "off"
   - type: custom:button-card
     entity: input_boolean.living_room_heating_system_service_control
-    name: lämmitysautomatiikka
+    name: Lämmitysautomatiikka
     show_state: false
     tap_action:
       action: toggle
